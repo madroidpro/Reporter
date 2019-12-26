@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="working_hours" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail"
+              columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+              uuid="1a12c021-57e2-4482-a273-56cbd3f78a17">
+    <subDataset name="PieData" uuid="119b7f0e-01ef-4e2b-b628-d76f51e83768">
+        <field name="key" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
+    <parameter name="PieData_SET" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"
+               isForPrompting="false"/>
+    <pageFooter>
+        <band height="17">
+            <textField>
+                <reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="c7f5dcbd-921c-4949-8f5c-3922c35efa2c"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="0f776560-e86c-4c18-bb5a-76c0842abe06"/>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField pattern="EEEEE dd MMMMM yyyy">
+                <reportElement x="0" y="4" width="100" height="13" uuid="4f042a9c-a347-4667-9795-ae1c1612e30f"/>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band height="142" splitType="Stretch">
+            <pieChart>
+                <chart>
+                    <reportElement x="80" y="0" width="337" height="142" uuid="c8f4dc5d-47e7-489b-b27e-09976d90994a"/>
+                </chart>
+                <pieDataset>
+                    <dataset>
+                    <datasetRun subDataset="PieData" uuid="abec2dce-b670-4e84-b71f-469d954dbcb5">
+                        <dataSourceExpression><![CDATA[$P{PieData_SET}]]></dataSourceExpression>
+                    </datasetRun>
+                    </dataset>
+                    <keyExpression>
+                        <![CDATA[$F{key}]]>
+                    </keyExpression>
+                    <valueExpression>
+                        <![CDATA[$F{value}]]>
+                    </valueExpression>
+                    <sectionHyperlink hyperlinkType="Reference" hyperlinkTarget="Blank">
+                        <hyperlinkReferenceExpression>"/Link to particular selection"</hyperlinkReferenceExpression>
+                        <hyperlinkTooltipExpression>
+                            <![CDATA["Read more about " + $F{key}]]></hyperlinkTooltipExpression>
+                    </sectionHyperlink>
+
+                </pieDataset>
+                <piePlot>
+                    <plot>
+                    </plot>
+                </piePlot>
+            </pieChart>
+        </band>
+    </summary>
+</jasperReport>

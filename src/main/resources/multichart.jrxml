@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="working_hours" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1a12c021-57e2-4482-a273-56cbd3f78a17">
+    <subDataset name="PieData" uuid="119b7f0e-01ef-4e2b-b628-d76f51e83768">
+        <field name="key" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
+    <subDataset name="chartDataSet" uuid="119b7f0e-01ef-4e2b-b628-d76f51e83768">
+        <field name="series" class="java.lang.String"/>
+        <field name="category" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
+    <parameter name="PieData_SET" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+    <parameter name="CHART_DATASET" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+    <pageFooter>
+        <band height="17">
+            <textField>
+                <reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="c7f5dcbd-921c-4949-8f5c-3922c35efa2c"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="0f776560-e86c-4c18-bb5a-76c0842abe06"/>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField pattern="EEEEE dd MMMMM yyyy">
+                <reportElement x="0" y="4" width="100" height="13" uuid="4f042a9c-a347-4667-9795-ae1c1612e30f"/>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band height="420" splitType="Stretch">
+            <pieChart>
+                <chart>
+                    <reportElement x="80" y="30" width="337" height="170" uuid="c8f4dc5d-47e7-489b-b27e-09976d90994a"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <pieDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="PieData" uuid="abec2dce-b670-4e84-b71f-469d954dbcb5">
+                            <dataSourceExpression><![CDATA[$P{PieData_SET}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <keyExpression><![CDATA[$F{key}]]></keyExpression>
+                    <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    <sectionHyperlink hyperlinkType="Reference" hyperlinkTarget="Blank">
+                        <hyperlinkReferenceExpression><![CDATA["/Link to particular selection"]]></hyperlinkReferenceExpression>
+                        <hyperlinkTooltipExpression><![CDATA["Read more about " + $F{key}]]></hyperlinkTooltipExpression>
+                    </sectionHyperlink>
+                </pieDataset>
+                <piePlot>
+                    <plot/>
+                    <itemLabel/>
+                </piePlot>
+            </pieChart>
+            <barChart>
+                <chart>
+                    <reportElement x="90" y="240" width="337" height="180" uuid="c8f4dc5d-47e7-489b-b27e-09976d90994a"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="chartDataSet" uuid="abec2dce-b670-4e84-b71f-469d954dbcb5">
+                            <dataSourceExpression><![CDATA[$P{CHART_DATASET}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{series}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot>
+                    <plot/>
+                    <itemLabel/>
+                    <categoryAxisFormat>
+                        <axisFormat/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat/>
+                    </valueAxisFormat>
+                </barPlot>
+            </barChart>
+        </band>
+    </summary>
+</jasperReport>
