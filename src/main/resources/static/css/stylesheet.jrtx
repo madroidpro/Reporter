@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE jasperTemplate
+        PUBLIC "-//JasperReports//DTD Template//EN"
+        "http://jasperreports.sourceforge.net/dtds/jaspertemplate.dtd">
+
+<jasperTemplate>
+
+    <style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+        <box>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+        <box>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+        <box>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+</jasperTemplate>

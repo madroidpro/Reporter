@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="working_hours" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail"
+              columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+              uuid="1a12c021-57e2-4482-a273-56cbd3f78a17">
+    <template><![CDATA["http://localhost:9099/css/stylesheet.jrtx"]]></template>
+    <subDataset name="PieData" uuid="119b7f0e-01ef-4e2b-b628-d76f51e83768">
+        <field name="key" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
+    <subDataset name="chartDataSet" uuid="119b7f0e-01ef-4e2b-b628-d76f51e83768">
+        <field name="series" class="java.lang.String"/>
+        <field name="category" class="java.lang.String"/>
+        <field name="value" class="java.lang.Double"/>
+    </subDataset>
+    <subDataset name="UserDataSet" uuid="119b7f0e-01ef-4e2b-b628-d76f51e83768">
+        <field name="id" class="java.lang.Integer"/>
+        <field name="name" class="java.lang.String"/>
+        <field name="birthDate" class="java.util.Date"/>
+    </subDataset>
+    <parameter name="PieData_SET" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"
+               isForPrompting="false"/>
+    <parameter name="CHART_DATASET" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"
+               isForPrompting="false"/>
+    <parameter name="User_DATASET" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"
+               isForPrompting="false"/>
+    <background>
+        <band height="16">
+            <textField>
+                <reportElement mode="Opaque" x="0" y="0" width="515" height="13" backcolor="#E6E6E6"
+                               uuid="c7f5dcbd-921c-4949-8f5c-3922c35efa2c"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement mode="Opaque" x="510" y="0" width="40" height="13" backcolor="#E6E6E6"
+                               uuid="0f776560-e86c-4c18-bb5a-76c0842abe06"/>
+                <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <textField pattern="EEEEE dd MMMMM yyyy">
+                <reportElement x="5" y="3" width="100" height="13" uuid="4f042a9c-a347-4667-9795-ae1c1612e30f"/>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </background>
+    <title>
+        <band height="72">
+            <frame>
+                <reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699"
+                               uuid="067e5760-2a3c-4197-92e5-afbec0f9ce47"/>
+                <staticText>
+                    <reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF"
+                                   uuid="7fd19f78-c0bc-46e9-a879-cead959aa829"/>
+                    <textElement>
+                        <font size="34" isBold="true"/>
+                    </textElement>
+                    <text><![CDATA[HND6KOR]]></text>
+                </staticText>
+                <staticText>
+                    <reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF"
+                                   uuid="d542e825-fb57-41bd-b967-ba4a22515efe"/>
+                    <textElement textAlignment="Right">
+                        <font size="14" isBold="false"/>
+                    </textElement>
+                    <text><![CDATA[User Reports]]></text>
+                </staticText>
+            </frame>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="13"/>
+    </pageHeader>
+    <summary>
+        <band height="420" splitType="Stretch">
+            <pieChart>
+                <chart>
+                    <reportElement x="320" y="30" width="257" height="170" uuid="c8f4dc5d-47e7-489b-b27e-09976d90994a"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <pieDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="PieData" uuid="abec2dce-b670-4e84-b71f-469d954dbcb5">
+                            <dataSourceExpression><![CDATA[$P{PieData_SET}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <keyExpression><![CDATA[$F{key}]]></keyExpression>
+                    <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    <sectionHyperlink hyperlinkType="Reference" hyperlinkTarget="Blank">
+                        <hyperlinkReferenceExpression>
+                            <![CDATA["/Link to particular selection"]]></hyperlinkReferenceExpression>
+                        <hyperlinkTooltipExpression>
+                            <![CDATA["Read more about " + $F{key}]]></hyperlinkTooltipExpression>
+                    </sectionHyperlink>
+                </pieDataset>
+                <piePlot>
+                    <plot/>
+                    <itemLabel/>
+                </piePlot>
+            </pieChart>
+            <barChart>
+                <chart>
+                    <reportElement x="320" y="240" width="240" height="180"
+                                   uuid="c8f4dc5d-47e7-489b-b27e-09976d90994a"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <categoryDataset>
+                    <dataset resetType="Report">
+                        <datasetRun subDataset="chartDataSet" uuid="abec2dce-b670-4e84-b71f-469d954dbcb5">
+                            <dataSourceExpression><![CDATA[$P{CHART_DATASET}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <categorySeries>
+                        <seriesExpression><![CDATA[$F{series}]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{category}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{value}]]></valueExpression>
+                    </categorySeries>
+                </categoryDataset>
+                <barPlot>
+                    <plot/>
+                    <itemLabel/>
+                    <categoryAxisFormat>
+                        <axisFormat/>
+                    </categoryAxisFormat>
+                    <valueAxisFormat>
+                        <axisFormat/>
+                    </valueAxisFormat>
+                </barPlot>
+            </barChart>
+            <componentElement>
+                <reportElement x="10" y="20" width="260" height="200" uuid="a81166f5-89b8-46b6-9dca-e0b193e14351">
+                    <property name="com.jaspersoft.studio.layout"
+                              value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+                    <property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+                </reportElement>
+                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components"
+                          xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="UserDataSet" uuid="093c762e-1405-4a3c-a938-31da1a654b9c">
+                        <dataSourceExpression><![CDATA[$P{User_DATASET}]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:column width="100" uuid="cac353aa-0edf-4b74-9098-14ce9e37aee6">
+                        <jr:tableHeader style="Table_TH" height="30"/>
+                        <jr:tableFooter style="Table_TH" height="30"/>
+                        <jr:columnHeader style="Table_CH" height="30">
+                            <staticText>
+                                <reportElement x="0" y="0" width="100" height="30"
+                                               uuid="6448be31-2647-47dd-a84d-7cf30250e500"/>
+                                <text><![CDATA[ID]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:columnFooter style="Table_CH" height="30"/>
+                        <jr:detailCell style="Table_TD" height="30">
+                            <textField>
+                                <reportElement x="0" y="0" width="100" height="30"
+                                               uuid="e4b21dac-3fa7-4a86-b612-a0a9c4fd3b58"/>
+                                <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="94" uuid="c7caa738-64c6-49e8-a0cd-761c1c745e5f">
+                        <jr:tableHeader style="Table_TH" height="30"/>
+                        <jr:tableFooter style="Table_TH" height="30"/>
+                        <jr:columnHeader style="Table_CH" height="30">
+                            <staticText>
+                                <reportElement x="0" y="0" width="94" height="30"
+                                               uuid="e7dbb150-e785-4807-b96e-7ba626223391"/>
+                                <text><![CDATA[NAME]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:columnFooter style="Table_CH" height="30"/>
+                        <jr:detailCell style="Table_TD" height="30">
+                            <textField>
+                                <reportElement x="0" y="0" width="94" height="30"
+                                               uuid="8cd0b5b5-e51c-4e3a-8b1a-7a5408fca6d4"/>
+                                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="100" uuid="01a0cf56-86e6-4ff9-9f44-888773abae49">
+                        <jr:tableHeader style="Table_TH" height="30"/>
+                        <jr:tableFooter style="Table_TH" height="30"/>
+                        <jr:columnHeader style="Table_CH" height="30">
+                            <staticText>
+                                <reportElement x="0" y="0" width="100" height="30"
+                                               uuid="5d96b59e-d02d-4902-8786-4d2d8e27de6d"/>
+                                <text><![CDATA[BirthDate]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:columnFooter style="Table_CH" height="30"/>
+                        <jr:detailCell style="Table_TD" height="30">
+                            <textField>
+                                <reportElement x="0" y="0" width="100" height="30"
+                                               uuid="4ffdf60e-573e-4cc7-9d96-712c71745cfc"/>
+                                <textFieldExpression><![CDATA[$F{birthDate}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                </jr:table>
+            </componentElement>
+        </band>
+    </summary>
+</jasperReport>

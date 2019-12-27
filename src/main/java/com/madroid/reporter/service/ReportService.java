@@ -6,6 +6,7 @@ import com.madroid.reporter.DataProvider.PieData;
 import com.madroid.reporter.DataProvider.User;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.exolab.castor.types.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -13,10 +14,9 @@ import org.thymeleaf.context.Context;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.util.*;
 
 @Service
 public class ReportService {
@@ -99,13 +99,18 @@ public class ReportService {
 
     public String generateMultiChartReport(String type) throws FileNotFoundException, JRException {
         String path = "C:\\Madhusudhan\\springboot\\reports";
+
+        List<User> user = new ArrayList<User>(users.findAll());
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("User_DATASET", new JRBeanCollectionDataSource(user));
+
+
         List<PieData> cList = new ArrayList<PieData>();
         cList.add(new PieData("ele1", 30.0)); //The use of resources or static text is beyond this example
         cList.add(new PieData("ele2", 60.0)); //The use of resources or static text is beyond this example
         cList.add(new PieData("ele3", 80.0)); //The use of resources or static text is beyond this example
         cList.add(new PieData("ele4", 20.0)); //The use of resources or static text is beyond this example
 
-        Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("PieData_SET", new JRBeanCollectionDataSource(cList));
 
         List<ChartData> cList2 = new ArrayList<ChartData>();
@@ -118,14 +123,14 @@ public class ReportService {
 
         paramMap.put("CHART_DATASET", new JRBeanCollectionDataSource(cList2));
 
-        File file = ResourceUtils.getFile("classpath:multichart.jrxml");
+        File file = ResourceUtils.getFile("classpath:fullreport.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, paramMap);
         if (type.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\multi_chart.html");
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\multi_chart_"+ZonedDateTime.now().toInstant().toEpochMilli()+".html");
         }
         if (type.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\multi_chart.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\multi_chart_"+ ZonedDateTime.now().toInstant().toEpochMilli()+".pdf");
         }
 
         return "report generated in path : " + path;
