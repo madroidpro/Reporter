@@ -1,7 +1,5 @@
 package com.madroid.reporter.DataProvider;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
@@ -11,11 +9,11 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-@JsonFilter("UserFilter")
+//@JsonFilter("UserFilter")
 @Entity
 public class User {
 
-	@JsonIgnore
+	//@JsonIgnore
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -25,7 +23,10 @@ public class User {
 	@Past
 	@JsonProperty("birth_date")
 	private Date birthDate;
-	
+
+	public User() {
+	}
+
 	public User(int id, String name, Date birthDate) {
 		super();
 		this.id = id;

@@ -6,17 +6,17 @@ import com.madroid.reporter.DataProvider.PieData;
 import com.madroid.reporter.DataProvider.User;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.exolab.castor.types.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
-import org.thymeleaf.context.Context;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReportService {
@@ -132,6 +132,25 @@ public class ReportService {
         if (type.equalsIgnoreCase("pdf")) {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\multi_chart_"+ ZonedDateTime.now().toInstant().toEpochMilli()+".pdf");
         }
+
+        return "report generated in path : " + path;
+
+    }
+
+    public String generateReportRest(List<User> user) throws FileNotFoundException, JRException {
+        String path = "C:\\Madhusudhan\\springboot\\reports";
+        File file = ResourceUtils.getFile("classpath:report.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(user);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("createdBy", "HND6KOR");
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+//        if (type.equalsIgnoreCase("html")) {
+//            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\users.html");
+//        }
+      //  if (type.equalsIgnoreCase("pdf")) {
+            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\usersRestReport"+ ZonedDateTime.now().toInstant().toEpochMilli()+".pdf");
+      //  }
 
         return "report generated in path : " + path;
 
